@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Management System | Rahul Gopan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .project-showcase {
+            transition: transform 0.3s ease;
+        }
+        
+        .project-showcase:hover {
+            transform: scale(1.02);
+        }
+        
+        .tech-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+        }
+        
+        .process-step {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .process-step:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: #2563eb;
+        }
+        
+        .process-step:after {
+            content: '';
+            position: absolute;
+            left: 0.7rem;
+            top: 2rem;
+            bottom: -3rem;
+            width: 2px;
+            background: #d1d5db;
+        }
+        
+        .process-step:last-child:after {
+            display: none;
+        }
+        
+        .timeline-container {
+            position: relative;
+        }
+        
+        .timeline-container:before {
+            position: absolute;
+            left: 1.7rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #d1d5db;
+            z-index: 1;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm shadow-md z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-primary">Rahul Gopan</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="index.html#about" class="hover:text-primary transition-colors">About</a>
+                <a href="index.html#experience" class="hover:text-primary transition-colors">Experience</a>
+                <a href="index.html#skills" class="hover:text-primary transition-colors">Skills</a>
+                <a href="index.html#projects" class="hover:text-primary transition-colors">Projects</a>
+                <a href="index.html#contact" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-primary">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden px-6 pt-2 pb-4 bg-white shadow-lg">
+            <a href="index.html#about" class="block py-2 hover:text-primary">About</a>
+            <a href="index.html#experience" class="block py-2 hover:text-primary">Experience</a>
+            <a href="index.html#skills" class="block py-2 hover:text-primary">Skills</a>
+            <a href="index.html#projects" class="block py-2 hover:text-primary">Projects</a>
+            <a href="index.html#contact" class="block py-2 hover:text-primary">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <div class="pt-20 pb-6">
+        <div class="container mx-auto px-6">
+            <a href="index.html#projects" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Projects
+            </a>
+        </div>
+    </div>
+
+    <!-- Project Header -->
+    <section class="py-8">
+        <div class="container mx-auto px-6">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden project-showcase">
+                <div class="md:flex">
+                    <div class="md:w-2/3">
+                        <div class="h-64 md:h-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center p-8">
+                            <i class="fas fa-hospital-alt text-white text-6xl md:text-8xl"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 p-8 flex flex-col justify-center">
+                        <h1 class="text-3xl font-bold mb-4">Token Management System</h1>
+                        <p class="text-gray-600 mb-6">A web-based solution to streamline patient and visitor flow in hospitals with real-time token management.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-tag bg-blue-100 text-primary text-sm px-3 py-1 rounded-full">Laravel</span>
+                            <span class="tech-tag bg-blue-100 text-primary text-sm px-3 py-1 rounded-full">JavaScript</span>
+                            <span class="tech-tag bg-blue-100 text-primary text-sm px-3 py-1 rounded-full">MySQL</span>
+                            <span class="tech-tag bg-blue-100 text-primary text-sm px-3 py-1 rounded-full">Bootstrap</span>
+                            <span class="tech-tag bg-blue-100 text-primary text-sm px-3 py-1 rounded-full">WebSockets</span>
+                        </div>
+<!--                         <a href="#live-demo" class="bg-primary hover:bg-secondary text-white text-center py-3 rounded-lg shadow-md transition-colors mb-3">
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Rahul-Gopan" class="border border-primary text-primary hover:bg-primary hover:text-white text-center py-3 rounded-lg shadow-md transition-colors">
+                            View Code
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Details -->
+    <section class="py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <h2 class="text-2xl font-bold mb-6">Project Overview</h2>
+                    <p class="text-gray-700 mb-6">
+                        The Token Management System (TMS) was developed to streamline patient flow management in hospitals and clinics by automating the process of issuing, calling, and monitoring tokens. Traditionally, hospitals relied on manual token slips or verbal announcements, which often led to confusion, long waiting times, and poor patient experience.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        This system digitizes the entire workflow: patients generate tokens for their respective departments, doctors call the tokens in sequence (or on priority if needed), and the lobby display updates in real-time. The application was initially built using PHP, HTML, JavaScript, and Bootstrap without npm for lightweight deployment, and later integrated with Laravel for scalability and modular design.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold my-6">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div class="feature-card bg-white p-6 rounded-xl shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-primary text-xl mb-4">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Token Generation</h3>
+                            <p class="text-gray-600">Generate tokens for each department (OPD, Lab, Pharmacy, etc.) with unique numbering.</p>
+                        </div>
+                        <div class="feature-card bg-white p-6 rounded-xl shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-primary text-xl mb-4">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Lobby Display</h3>
+                            <p class="text-gray-600">Real-time lobby display showing live token status with visual and audio alerts.</p>
+                        </div>
+                        <div class="feature-card bg-white p-6 rounded-xl shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-primary text-xl mb-4">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Doctor Dashboard</h3>
+                            <p class="text-gray-600">Call next, random, hold, skip, or complete tokens with emergency priority support.</p>
+                        </div>
+                        <div class="feature-card bg-white p-6 rounded-xl shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-primary text-xl mb-4">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Reporting & Analytics</h3>
+                            <p class="text-gray-600">Daily token counts, average waiting times, and department-wise load reports.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- <h2 class="text-2xl font-bold my-6" id="live-demo">System Demo</h2>
+                    <div class="bg-white p-1 rounded-2xl shadow-xl mb-12">
+                        <div class="video-container"> -->
+                            <!-- Replace with actual project video -->
+                            <!-- <iframe src="https://www.youtube.com/embed/9No-FiEInLA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div> -->
+                    
+                    <h2 class="text-2xl font-bold my-6">Development Process</h2>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-clipboard-list text-primary"></i>
+                            </span>
+                            Project Overview
+                        </h3>
+                        <p class="text-gray-700 mb-6">
+                            The Token Management System (TMS) was developed to streamline patient flow management in hospitals and clinics by automating the process of issuing, calling, and monitoring tokens. Traditionally, hospitals relied on manual token slips or verbal announcements, which often led to confusion, long waiting times, and poor patient experience.
+                        </p>
+                        <p class="text-gray-700">
+                            This system digitizes the entire workflow: patients generate tokens for their respective departments, doctors call the tokens in sequence (or on priority if needed), and the lobby display updates in real-time. The application was initially built using PHP, HTML, JavaScript, and Bootstrap without npm for lightweight deployment, and later integrated with Laravel for scalability and modular design.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-search text-primary"></i>
+                            </span>
+                            Requirement Gathering & Analysis
+                        </h3>
+                        <p class="text-gray-700 mb-4">
+                            Through discussions with hospital staff and administrators, the following requirements were identified:
+                        </p>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-3 text-gray-800">Functional Requirements</h4>
+                        <ul class="list-disc pl-5 text-gray-700 mb-6">
+                            <li class="mb-2">Token generation for each department (OPD, Lab, Pharmacy, etc.)</li>
+                            <li class="mb-2">Lobby display to show live token status</li>
+                            <li class="mb-2">Doctor-side dashboard to call next, call random, hold, or skip tokens</li>
+                            <li class="mb-2">Emergency token support (prioritized calling)</li>
+                            <li class="mb-2">Real-time updates on lobby screens</li>
+                            <li>Department & doctor-wise configuration</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-3 text-gray-800">Non-Functional Requirements</h4>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2">Simple and user-friendly interface for non-technical hospital staff</li>
+                            <li class="mb-2">Optimized for fast performance in local networks</li>
+                            <li class="mb-2">Scalable to support multiple counters and departments</li>
+                            <li>Secure handling of patient token data</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-project-diagram text-primary"></i>
+                            </span>
+                            System Design & Architecture
+                        </h3>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-3 text-gray-800">Architecture</h4>
+                        <ul class="list-disc pl-5 text-gray-700 mb-6">
+                            <li class="mb-2">PHP & Laravel MVC structure (backend)</li>
+                            <li class="mb-2">Bootstrap + JavaScript (frontend UI)</li>
+                            <li class="mb-2">MySQL database for storing tokens, doctors, and department data</li>
+                            <li>Broadcasting (Laravel Echo + Reverb) for real-time lobby updates</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-3 text-gray-800">Database Design</h4>
+                        <ul class="list-disc pl-5 text-gray-700 mb-6">
+                            <li class="mb-2"><code>departments</code> – stores department info (OPD, Lab, Pharmacy)</li>
+                            <li class="mb-2"><code>doctors</code> – doctor details mapped to departments</li>
+                            <li class="mb-2"><code>tokens</code> – token number, status (waiting, called, on hold, completed), priority flag</li>
+                            <li class="mb-2"><code>displays</code> – lobby screens mapped to departments</li>
+                            <li><code>users</code> – admin/staff accounts</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-3 text-gray-800">Workflow Model</h4>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2">Patient generates a token at reception/self-service kiosk</li>
+                            <li class="mb-2">Token stored in DB with status = waiting</li>
+                            <li class="mb-2">Doctor panel allows actions: Call Next, Call Random, Hold, Skip, Complete</li>
+                            <li class="mb-2">Lobby display auto-updates via real-time broadcasting</li>
+                            <li>Reports track daily token statistics per doctor/department</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-palette text-primary"></i>
+                            </span>
+                            UI/UX Prototyping
+                        </h3>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2"><strong>Reception Panel</strong> – Token generation page</li>
+                            <li class="mb-2"><strong>Doctor Panel</strong> – Token call controls (Next, Random, Hold, Complete)</li>
+                            <li class="mb-2"><strong>Lobby Display</strong> – Full-screen token board with department-wise token status</li>
+                            <li><strong>Admin Panel</strong> – Department/Doctor management and reporting</li>
+                        </ul>
+                        <p class="text-gray-700 mt-4">
+                            Prototypes were designed with Bootstrap 5 + custom CSS, ensuring compatibility with screens of all sizes, especially hospital lobby TVs.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-code text-primary"></i>
+                            </span>
+                            Development Phases
+                        </h3>
+                        
+                        <div class="timeline-container mt-8 ml-4">
+                            <div class="process-step">
+                                <h4 class="font-bold text-lg mb-2">Phase 1 – Core Setup</h4>
+                                <p class="text-gray-700">PHP + MySQL environment configured. Database schema and migrations created. Admin authentication implemented.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h4 class="font-bold text-lg mb-2">Phase 2 – Token Generation & Department Setup</h4>
+                                <p class="text-gray-700">Token generation with unique numbering per department. Auto-reset feature for new day. Department-wise token prefix configuration.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h4 class="font-bold text-lg mb-2">Phase 3 – Doctor Dashboard</h4>
+                                <p class="text-gray-700">Controls for managing tokens: Call Next, Call Random, Hold, Skip/Complete. Emergency override to prioritize critical patients.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h4 class="font-bold text-lg mb-2">Phase 4 – Lobby Display & Real-Time Updates</h4>
+                                <p class="text-gray-700">Designed lobby screen UI with Bootstrap. Integrated real-time broadcasting (Laravel Echo + WebSockets). Auto-refresh and visual/audio alert when new token is called.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h4 class="font-bold text-lg mb-2">Phase 5 – Reporting & Analytics</h4>
+                                <p class="text-gray-700">Daily token count per doctor. Average waiting time calculation. Department-wise load reports.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <h4 class="font-bold text-lg mb-2">Phase 6 – Testing & Optimization</h4>
+                                <p class="text-gray-700">Stress-tested with multiple concurrent departments. Optimized SQL queries for faster token fetching. Secured input validation to prevent misuse.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-server text-primary"></i>
+                            </span>
+                            Deployment
+                        </h3>
+                        <p class="text-gray-700">
+                            Deployed on hospital internal Nginx server. Configured for ubantu-based hospital networks.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-user-tie text-primary"></i>
+                            </span>
+                            My Role & Contributions
+                        </h3>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2"><strong>System Design & Architecture</strong> – Created complete workflow and DB schema</li>
+                            <li class="mb-2"><strong>Development</strong> – Worked on backend logic (token queue, doctor controls, broadcasting) and frontend UI (lobby display, Bootstrap styling)</li>
+                            <li class="mb-2"><strong>Team Lead</strong> – Instructed developers at every turn and resolved edge cases (missing tokens, skipped tokens, dynamic generation)</li>
+                            <li class="mb-2"><strong>Deployment & Server Handling</strong> – Configured Nginx server in ubantu system for hosting.</li>
+                            <li><strong>Direct Coding Contributions</strong> – Implemented token logic, error-proof doctor dashboard, and real-time update mechanism</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                        <h3 class="text-xl font-bold text-primary mb-6 flex items-center">
+                            <span class="bg-primary/10 p-2 rounded-lg mr-3">
+                                <i class="fas fa-chart-line text-primary"></i>
+                            </span>
+                            Outcome & Benefits
+                        </h3>
+                        <p class="text-gray-700 mb-4">
+                            The Token Management System drastically improved patient handling efficiency in hospitals. Key benefits included:
+                        </p>
+                        <ul class="list-disc pl-5 text-gray-700 mb-6">
+                            <li class="mb-2">Reduced waiting confusion and overcrowding at counters</li>
+                            <li class="mb-2">Real-time lobby updates improved patient experience</li>
+                            <li class="mb-2">Doctors gained full control over token flow</li>
+                            <li>Hospital admins received actionable reports on department performance</li>
+                            <li class="mb-2">Mobile App for doctors to manage tokens remotely</li>
+                            <li class="mb-2">QR Code-based Token Scanning for patients</li>
+                            <li>Voice Announcement Integration for token calls</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="sticky top-24">
+                        <div class="bg-white p-6 rounded-2xl shadow-xl mb-8">
+                            <h3 class="font-bold text-lg mb-4">Project Information</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Category</p>
+                                    <p class="font-medium">Healthcare Management System</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Technologies</p>
+                                    <div class="flex flex-wrap gap-2 mt-1">
+                                        <span class="tech-tag bg-blue-100 text-primary text-xs px-2 py-1 rounded">Laravel</span>
+                                        <span class="tech-tag bg-blue-100 text-primary text-xs px-2 py-1 rounded">PHP</span>
+                                        <span class="tech-tag bg-blue-100 text-primary text-xs px-2 py-1 rounded">JavaScript</span>
+                                        <span class="tech-tag bg-blue-100 text-primary text-xs px-2 py-1 rounded">MySQL</span>
+                                        <span class="tech-tag bg-blue-100 text-primary text-xs px-2 py-1 rounded">Bootstrap</span>
+                                        <span class="tech-tag bg-blue-100 text-primary text-xs px-2 py-1 rounded">WebSockets</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="bg-white p-6 rounded-2xl shadow-xl">
+                            <h3 class="font-bold text-lg mb-4">System Screenshots</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="gallery-item rounded-lg overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1587351021759-3e566b3db4f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="TMS Dashboard" class="w-full h-32 object-cover">
+                                </div>
+                                <div class="gallery-item rounded-lg overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="TMS Token Screen" class="w-full h-32 object-cover">
+                                </div>
+                                <div class="gallery-item rounded-lg overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1590402494610-2c7a0d599afd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="TMS Doctor View" class="w-full h-32 object-cover">
+                                </div>
+                                <div class="gallery-item rounded-lg overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="TMS Lobby Display" class="w-full h-32 object-cover">
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Interested in implementing a similar system?</h2>
+            <p class="text-blue-100 mb-8 max-w-2xl mx-auto">I'm available for freelance work and full-time opportunities. Feel free to reach out if you want to build something amazing together.</p>
+            <a href="index.html#contact" class="bg-white text-primary hover:bg-blue-50 px-8 py-3 rounded-lg shadow-md font-semibold transition-colors inline-block">
+                Get In Touch
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://www.linkedin.com/in/rahul-gopan-0092b31b3" class="hover:text-accent transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+                <a href="https://github.com/Rahul-Gopan" class="hover:text-accent transition-colors"><i class="fab fa-github text-xl"></i></a>
+                <a href="mailto:rahulgopan312@gmail.com" class="hover:text-accent transition-colors"><i class="far fa-envelope text-xl"></i></a>
+            </div>
+            <p class="mb-2">© 2023 Rahul Gopan. All rights reserved.</p>
+            <p class="text-gray-400">Designed and developed with ❤️</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Simple image lightbox functionality for gallery
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    cursor: pointer;
+                `;
+                
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.style.maxWidth = '90%';
+                img.style.maxHeight = '90%';
+                img.style.objectFit = 'contain';
+                img.style.borderRadius = '0.5rem';
+                
+                overlay.appendChild(img);
+                overlay.addEventListener('click', function() {
+                    document.body.removeChild(overlay);
+                });
+                
+                document.body.appendChild(overlay);
+            });
+        });
+    </script>
+</body>
+</html>
